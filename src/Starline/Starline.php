@@ -125,19 +125,19 @@ class Starline {
      * SLID - Авторизация пользователя
      * @see https://id.starline.ru/apiV3/user/login
      * @param string $token
-     * @param string $user_ip
+     * @param array $params,  ['user_ip' => ..., 'captchaSid' => '...', 'captchaCode' => '...']
      * @return string
      * @throws Exception|GuzzleException
      */
-    public function fetchUserToken(string $token, string $user_ip = ''): string {
+    public function fetchUserToken(string $token, array $params = []): string {
         /** @noinspection PhpUnhandledExceptionInspection */
         $config = $this->getConfig();
         $request_params = [
             'login' => $config->getLogin(),
             'pass' => sha1($config->getPassword()),
         ];
-        if (!empty($user_ip)) {
-            $request_params['user_ip'] = $user_ip;
+        if (!empty($params)) {
+            $request_params = array_merge($request_params, $params);
         }
         $response = $this->createPostRequest('https://id.starline.ru/apiV3/user/login', $request_params, [
             'token' => $token,
