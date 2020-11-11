@@ -4,6 +4,11 @@
 
 Реализация работы с Starline Open API.
 
+Установка через Composer:
+```
+sudo composer require kazmikro/starline:v1.0
+```
+
 Примеры работы:
 
 ```php
